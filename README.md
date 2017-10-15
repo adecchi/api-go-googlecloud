@@ -38,6 +38,8 @@ Para poder utilizar el sistema como un servicio a las otras civilizaciones, los 
 
 `Ej:`   GET → http://....../clima?dia=566   → Respuesta: {“dia”:566, “clima”:”lluvia”}
 ### Especificaciones
+Debido a que son cálculos matemáticos, se depende de la precision con la que se trabaje y el tipo de dato (int, float32,float64, etc). Aclarado esto podemos encontrar que a mayor precisión en los cálculos podremos observar que ciertos planetas estarán alineados, o que el punto (0,0) conocido de aqui en mas como Sol, puede entrar o no dentro del triángulo formado por los tres puntos.
+
 Para la realización del ejercicio se partio de que los 3 planetas y el sol arrancan alineados desde la posición 90° alineados. Donde se tienen 3 puntos P1(x,y),P2(x,y),P3(x,y)
 
 - Para el cálculo del perimetro se utilizo la siguiente fórmula:
@@ -85,6 +87,7 @@ CREATE TABLE clima_status (
 );
 ```
 - Se deberá haber registrado en Google Cloud, contar con acceso a las API de Google Cloud, haber descargado,instalado y configurado Google Cloud SDK, haber generado una instancia SQL Postgresql dentro del mismo lugar donde se deployará la aplicación API Rest GO, como asi tambien haber descargado Google SQL Proxy y haber creado las dos tablas arriba mencionada.
+
 ### Implementación y tecnologias usadas
 
 El proyecto contiene un servidor montado en [go](https://golang.org/) ejecutando en APP ENGINE de [Google Cloud](https://console.cloud.google.com) dónde se ejecutan las API Rest.
