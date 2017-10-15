@@ -8,8 +8,8 @@ Se puede ver una version estable del proyecto cuando me lo soliciten.
   - [Comentarios relevantes](#comentarios-relevantes)
   - [Pendientes](#pendientes)
 - [Setup](#setup)
-  - [Ejecutar el batch local y poblar BD PostgreSql en Google Cloud](#Ejecutar-el-batch-local-y-poblar-BD-PostgreSql-en-Google-Cloud)
-  - [Levantar el servidor API Rest en APP ENGINE](#Levantar-el-servidor-API-Rest-en-APP-ENGINE)
+  - [Ejecutar el batch local y poblar BD PostgreSql en Google Cloud](#ejecutar-el-batch-local-y-poblar-BD-PostgreSql-en-Google-Cloud)
+  - [Levantar el servidor API Rest en APP ENGINE](#levantar-el-servidor-API-Rest-en-APP-ENGINE)
 
 
 ## Ejercicio
