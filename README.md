@@ -2,18 +2,18 @@ GO-API Rest & Batch Job
 
 ---
 
-_...Pronostico climatico de una Galaxia muy muy lejana 🚀..._
+_...Pronóstico climático de una Galaxia muy muy lejana 🚀..._
 
 Leer [aqui](https://github.com/adecchi/api-go-googlecloud/blob/master/docs/ejercio.md) el enunciado de TP.
 
 ### Preconcideraciones:
 
-Debido a que la presente implementacion requiere calculo trigonometrico para su resolucion, es factible que los resultados varien segun la precicion decimal numerica que se seleccione((float32,float64, etc). 
+Debido a que la presente implementación requiere cálculo trigonométrico para su resolución, es factible que los resultados varien segun la precisión decimal numérica que se seleccione((float32,float64, etc). 
 
-Punto 1 del ejeccio propuesto, se ve resuelto cuando el angulo de apertura de los 3 planetas es de 90°:
+Para la resolución del ejercicio propuesto se usaron las formulas:
 
 
-- Se propone la siguiente formula:
+- Se propone la siguiente formula para calcular el perímetro:
 
 ``` go
 var d12 = math.Sqrt(math.Pow((Pos2.x-Pos1.x),2)+math.Pow((Pos2.y-Pos1.y),2))
@@ -22,7 +22,7 @@ var d23 = math.Sqrt(math.Pow((Pos3.x-Pos2.x),2)+math.Pow((Pos3.y-Pos2.y),2))
 var perimetro = d12 + d13 + d23
 ```
 
-- Para el segundo punto se propone la siguiente formula de resolucion:
+- Para saber si la posición (0,0) `sol` esta dentro del triángulo:
 
 ``` go
 var ori float64
@@ -47,9 +47,9 @@ trisol++
 }
 ```
 
-Para el correcto funcionamiento de la app, se deberán generar previamente dos tablas. Una de ellas las predicciones desagregadas del clima, y la otra los conteos de los diferentes estados climaticos correspondientes a los enunciados del ejecciocio propuesto.
+Para el correcto funcionamiento de la aplicación, se deberán generar previamente dos tablas. Una de ellas las predicciones desagregadas del clima, y la otra para los conteos de los diferentes estados climaticos, correspondientes a los enunciados del ejercicio propuesto.
 
-Dichas tablas responden al siguiente Schema:
+Dichas tablas responden al siguiente schema:
 
 ``` sql
 CREATE TABLE clima (  
@@ -68,26 +68,26 @@ CREATE TABLE clima_status (
 
 - Registrado en Google Cloud.
 - Contar con acceso a las API de Google Cloud.
-- Descargar, instalar y configura el `Google Cloud SDK`
-- Una instancia PostgreSQL con capacidad de conexion desde `AppEngine` 
+- Descargar, instalar y configurar el `Google Cloud SDK`
+- Una instancia PostgreSQL con capacidad de conexión desde `AppEngine` 
 - Google SQL Proxy.
 
 
 ### Implementación y tecnologias usadas
 
-El proyecto contiene un servidor desarrollado [go](https://golang.org/) y servido por APP ENGINE de [Google Cloud](https://console.cloud.google.com). El mismo ejecuta la API Rest.
-Para la carga de registro en forma batch en [Google Cloud](https://console.cloud.google.com) se utiliza [go](https://golang.org/) de manera local en la máquina. Una vez finalizada la carga, se pueden consultar el tiempo del clima, como asi también las estadísticas vía las API Rest comentadas en el párrafo anterior.
+El proyecto contiene un servidor desarrollado [go](https://golang.org/) y alojado en APP ENGINE de [Google Cloud](https://console.cloud.google.com). El mismo ejecuta la API Rest.
+Para la carga de registro de forma batch en [Google Cloud](https://console.cloud.google.com) se utiliza [go](https://golang.org/) de manera local en la máquina. Una vez finalizada la carga, se pueden consultar el tiempo del clima, como asi también las estadísticas vía las API Rest comentadas en el párrafo anterior.
 
 
 ### Comentarios relevantes
 
-_Al momento de empezar el trabajo, no me encontraba familiarizado con [go](https://golang.org/), ní con [Google Cloud](https://console.cloud.google.com), por tanto, tomé esta cituacion, como la oportunidad perfecta paras un nuevo desafío,  e incluso también para poder aprender los conceptos básicos de este lenguaje. Utilicé como principal referencia la [documentación oficial de go](https://golang.org/doc/) junto a las guías presentadas en su sitio oficial._
+_Al momento de empezar el trabajo, no me encontraba familiarizado con [go](https://golang.org/), ní con [Google Cloud](https://console.cloud.google.com), por tanto, tomé esta situación, como la oportunidad perfecta para un nuevo desafío,  e incluso también para poder aprender los conceptos básicos de este lenguaje. Utilicé como principal referencia la [documentación oficial de go](https://golang.org/doc/) junto a las guías presentadas en su sitio oficial._
 
-En mi ambiente de desarrollo, el servidor de go tardaba un tiempo considerable rápido para la realizacion de los insert en modo batch, no asi en[Google Cloud](https://console.cloud.google.com). Para mitigar un poco este delay, decidí utilizar la herramineta de Google SQL Proxy, con lo cual el insert de 3650 registro me llevo un tiempo promedio de 40 minutos.
+En mi ambiente de desarrollo, el servidor de GO tardaba un tiempo considerablemente rápido para la realizacion de los insert en modo batch, no asi en[Google Cloud](https://console.cloud.google.com). Para mitigar un poco este delay, decidí utilizar la herramineta de Google SQL Proxy, con lo cual el insert de 3650 registro me llevo un tiempo promedio de 40 minutos.
 
 ### Pendientes
 
-Luego del desarrollo realizado, y en base a mi personalidad inquieta y creativa, siento que me quedaron algunos pendientes que me gustaria contarles: 
+Luego del desarrollo realizado, y en base a mi personalidad proactiva, inquieta y creativa, siento que me quedaron algunos pendientes como: 
 
 - Mantener la conexión abierta a la BD, y cerrar la misma al terminar todos los inserts.
 - Unificar métodos de conexion, desconexión a la BD.
@@ -121,7 +121,7 @@ $ go get -u github.com/lib/pq
 $ go get -u google.golang.org/appengine
 ```
 ### Ejecutar el batch local y poblar BD PostgreSql en Google Cloud
-Previamente deveremos abrir una terminal en nuestra máquina, y estar en la carpeta dónde hemos descargado `cloud_sql_proxy`, `main_load_db.go` y `Google-Cloud-Key.json`.
+Previamente deberemos abrir una terminal en nuestra máquina, y estar en la carpeta dónde hemos descargado `cloud_sql_proxy`, `main_load_db.go` y `Google-Cloud-Key.json`.
 Luego ejecutamos los siguientes comandos, dónde se nos solicitara la credencial de acceso a Google Cloud y los datos de conexión a la BD.
 ``` bash
 $ gcloud auth login
@@ -138,7 +138,7 @@ Podremos observar en la terminal anterior como se van insertando los registros, 
 $ go build main_load_db.go
 ```
 ### Levantar el servidor API Rest en APP ENGINE
-Previamente deveremos abrir una terminal en nuestra máquina, y estar en la carpeta dónde hemos descargado `api_query.go`, `app.yaml`.
+Previamente deberemos abrir una terminal en nuestra máquina, y estar en la carpeta dónde hemos descargado `api_query.go`, `app.yaml`.
 Luego ejecutamos los siguientes comandos, dónde se nos solicitara la credencial de acceso a Google Cloud.
 **Nota:**
 No usar la misma carpeta, para la ejecucion de ambos codigos GO.
