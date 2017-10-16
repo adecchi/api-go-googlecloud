@@ -147,7 +147,7 @@ $ gcloud auth login
 $ gcloud config set project "Nombre-Proyecto-Google-Cloud"
 $ gcloud app deploy
 ```
-Una vez que la terminal nos devuelve el prompt, podremos ejecutar los siguientes comandos, uno para abrir el browser en la direccion de nuestra API REST y otro para ver el log de acceso a nuestra API REST.
+Una véz que la terminal nos devuelve el prompt, podremos ejecutar los siguientes comandos, uno para abrir el browser en la direccion de nuestra API REST y otro para ver el log de acceso a nuestra API REST.
 ``` bash
 $ gcloud app browse
 $ gcloud app logs tail -s default
