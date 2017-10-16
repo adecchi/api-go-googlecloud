@@ -47,7 +47,7 @@ trisol++
 }
 ```
 
-### Para el correccto funcionamiento de la app, se deberán generar previamente dos tablas. Una de ellas las predicciones desagregadas del clima, y la otra los conteos de los diferentes estados climaticos correspondientes a los enunciados del ejecciocio propuesto.
+Para el correcto funcionamiento de la app, se deberán generar previamente dos tablas. Una de ellas las predicciones desagregadas del clima, y la otra los conteos de los diferentes estados climaticos correspondientes a los enunciados del ejecciocio propuesto.
 
 Dichas tablas responden al siguiente Schema:
 
