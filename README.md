@@ -8,7 +8,7 @@ Leer [aqui](https://github.com/adecchi/api-go-googlecloud/blob/master/docs/ejerc
 
 ### Preconcideraciones:
 
-Debido a que la presente implementación requiere cálculo trigonométrico para su resolución, es factible que los resultados varien segun la precisión decimal numérica que se seleccione((float32,float64, etc). 
+Debido a que la presente implementación requiere cálculo trigonométrico para su resolución, es factible que los resultados varien segun la precisión decimal numérica que se seleccione (float32,float64, etc). 
 
 Para la resolución del ejercicio propuesto se usaron las formulas:
 
