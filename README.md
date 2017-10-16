@@ -4,7 +4,7 @@ GO-API Rest & Batch Job
 
 _...Pronostico climatico de una Galaxia muy muy lejana 🚀..._
 
-Leer [aqui](docs/ejecicio.md) el enunciado de TP.
+Leer [aqui](https://github.com/adecchi/api-go-googlecloud/blob/master/docs/ejercio.md) el enunciado de TP.
 
 ### Preconcideraciones:
 
