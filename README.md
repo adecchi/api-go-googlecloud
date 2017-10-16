@@ -1,55 +1,29 @@
-# GO API Rest and Batch Job 
-Ejercicio práctico de API Rest y Batch Job.
-Se puede ver una version estable del proyecto cuando me lo soliciten.
+GO-API Rest & Batch Job 
 
-- [Ejercicio](#ejercicio)
-  - [Especificaciones](#especificaciones)
-  - [Implementación y tecnologias usadas](#implementaci%C3%B3n-y-tecnologias-usadas)
-  - [Comentarios relevantes](#comentarios-relevantes)
-  - [Pendientes](#pendientes)
-- [Setup](#setup)
-  - [Ejecutar el batch local y poblar BD PostgreSql en Google Cloud](#ejecutar-el-batch-local-y-poblar-bd-postgresql-en-google-cloud)
-  - [Levantar el servidor API Rest en APP ENGINE](#levantar-el-servidor-api-rest-en-app-engine)
+---
+
+_...Pronostico climatico de una Galaxia muy muy lejana 🚀..._
+
+Leer [aqui](docs/ejecicio.md) el enunciado de TP.
+
+### Preconcideraciones:
+
+Debido a que la presente implementacion requiere calculo trigonometrico para su resolucion, es factible que los resultados varien segun la precicion decimal numerica que se seleccione((float32,float64, etc). 
+
+Punto 1 del ejeccio propuesto, se ve resuelto cuando el angulo de apertura de los 3 planetas es de 90°:
 
 
-## Ejercicio
-En una galaxia lejana, existen tres civilizaciones. Vulcanos, Ferengis y Betasoides. Cada civilización vive en paz en su respectivo planeta.
-Dominan la predicción del clima mediante un complejo sistema informático.
-A continuación el diagrama del sistema solar.
-`Premisas`:
-- El planeta Ferengi se desplaza con una velocidad angular de 1 grados/día en sentido horario. Su distancia con respecto al sol es de 500Km.
-- El planeta Betasoide se desplaza con una velocidad angular de 3 grados/día en sentido horario. Su distancia con respecto al sol es de 2000Km.
-- El planeta Vulcano se desplaza con una velocidad angular de 5 grados/día en sentido anti­horario, su distancia con respecto al sol es de 1000Km.
-- Todas las órbitas son circulares.
+- Se propone la siguiente formula:
 
-Cuando los tres planetas están alineados entre sí y a su vez alineados con respecto al sol, el sistema solar experimenta un período de sequía.
-Cuando los tres planetas no están alineados, forman entre sí un triángulo. Es sabido que en el momento en el que el sol se encuentra dentro del triángulo, el sistema solar experimenta un período de lluvia, teniendo éste, un pico de intensidad cuando el perímetro del triángulo está en su máximo.
-Las condiciones óptimas de presión y temperatura se dan cuando los tres planetas están alineados entre sí pero no están alineados con el sol.
-Realizar un programa informático para poder predecir en los próximos 10 años:
-1. ¿Cuántos períodos de sequía habrá?
-2. ¿Cuántos períodos de lluvia habrá y qué día será el pico máximo de lluvia?
-3. ¿Cuántos períodos de condiciones óptimas de presión y temperatura habrá?
-
-`Bonus:`
-Para poder utilizar el sistema como un servicio a las otras civilizaciones, los Vulcanos requieren tener una base de datos con las condiciones meteorológicas de todos los días y brindar una API REST de consulta sobre las condiciones de un día en particular.
-1) Generar un modelo de datos con las condiciones de todos los días hasta 10 años en adelante utilizando un job para calcularlas.
-2) Generar una API REST la cual devuelve en formato JSON la condición climática del día consultado.
-3) Hostear el modelo de datos y la API REST en un cloud computing  de Google APP Engine.
-
-`Ej:`   GET → http://....../clima?dia=566   → Respuesta: {“dia”:566, “clima”:”lluvia”}
-### Especificaciones
-Debido a que son cálculos matemáticos, se depende de la precision con la que se trabaje y el tipo de dato (int, float32,float64, etc). Aclarado esto podemos encontrar que a mayor precisión en los cálculos podremos observar que ciertos planetas estarán alineados, o que el punto (0,0) conocido de aqui en mas como Sol, puede entrar o no dentro del triángulo formado por los tres puntos.
-
-Para la realización del ejercicio se partio de que los 3 planetas y el sol arrancan alineados desde la posición 90° alineados. Donde se tienen 3 puntos P1(x,y),P2(x,y),P3(x,y)
-
-- Para el cálculo del perimetro se utilizo la siguiente fórmula:
 ``` go
 var d12 = math.Sqrt(math.Pow((Pos2.x-Pos1.x),2)+math.Pow((Pos2.y-Pos1.y),2))
 var d13 = math.Sqrt(math.Pow((Pos3.x-Pos1.x),2)+math.Pow((Pos3.y-Pos1.y),2))
 var d23 = math.Sqrt(math.Pow((Pos3.x-Pos2.x),2)+math.Pow((Pos3.y-Pos2.y),2))
 var perimetro = d12 + d13 + d23
 ```
-- Para el cálculo de ver si la posición (0,0) de ahora en más el sol esta dentro del triángulo se utilizo la siguiente fórmula:
+
+- Para el segundo punto se propone la siguiente formula de resolucion:
+
 ``` go
 var ori float64
 var Pos4 = pos{0, 0}
@@ -72,7 +46,11 @@ var a3 float64 = (Pos1.x-(Pos4.x))*(Pos2.y-(Pos4.y)) - (Pos1.y-(Pos4.y))*(Pos2.x
 trisol++
 }
 ```
-- Se deberán generar previamente 2 tablas, dónde se guardaran los resultados de las operaciones, como se muestra a continuación:
+
+### Para el correccto funcionamiento de la app, se deberán generar previamente dos tablas. Una de ellas las predicciones desagregadas del clima, y la otra los conteos de los diferentes estados climaticos correspondientes a los enunciados del ejecciocio propuesto.
+
+Dichas tablas responden al siguiente Schema:
+
 ``` sql
 CREATE TABLE clima (  
   id SERIAL PRIMARY KEY,
@@ -86,28 +64,43 @@ CREATE TABLE clima_status (
   valor INT
 );
 ```
-- Se deberá haber registrado en Google Cloud, contar con acceso a las API de Google Cloud, haber descargado,instalado y configurado Google Cloud SDK, haber generado una instancia SQL Postgresql dentro del mismo lugar donde se deployará la aplicación API Rest GO, como asi tambien haber descargado Google SQL Proxy y haber creado las dos tablas arriba mencionada.
+### Requisitos de Deploy:
+
+- Registrado en Google Cloud.
+- Contar con acceso a las API de Google Cloud.
+- Descargar, instalar y configura el `Google Cloud SDK`
+- Una instancia PostgreSQL con capacidad de conexion desde `AppEngine` 
+- Google SQL Proxy.
+
 
 ### Implementación y tecnologias usadas
 
-El proyecto contiene un servidor montado en [go](https://golang.org/) ejecutando en APP ENGINE de [Google Cloud](https://console.cloud.google.com) dónde se ejecutan las API Rest.
+El proyecto contiene un servidor desarrollado [go](https://golang.org/) y servido por APP ENGINE de [Google Cloud](https://console.cloud.google.com). El mismo ejecuta la API Rest.
 Para la carga de registro en forma batch en [Google Cloud](https://console.cloud.google.com) se utiliza [go](https://golang.org/) de manera local en la máquina. Una vez finalizada la carga, se pueden consultar el tiempo del clima, como asi también las estadísticas vía las API Rest comentadas en el párrafo anterior.
+
+
 ### Comentarios relevantes
 
-Al momento de empezar el trabajo, no me encontraba familiarizado con [go](https://golang.org/), ní con [Google Cloud](https://console.cloud.google.com), con lo cual tomé la oportunidad como desafío y también para poder aprender los conceptos básicos de este lenguaje. Utilicé como principal referencia la [documentación oficial de go](https://golang.org/doc/) junto a las guías presentadas en su sitio oficial.
+_Al momento de empezar el trabajo, no me encontraba familiarizado con [go](https://golang.org/), ní con [Google Cloud](https://console.cloud.google.com), por tanto, tomé esta cituacion, como la oportunidad perfecta paras un nuevo desafío,  e incluso también para poder aprender los conceptos básicos de este lenguaje. Utilicé como principal referencia la [documentación oficial de go](https://golang.org/doc/) junto a las guías presentadas en su sitio oficial._
+
 En mi ambiente de desarrollo, el servidor de go tardaba un tiempo considerable rápido para la realizacion de los insert en modo batch, no asi en[Google Cloud](https://console.cloud.google.com). Para mitigar un poco este delay, decidí utilizar la herramineta de Google SQL Proxy, con lo cual el insert de 3650 registro me llevo un tiempo promedio de 40 minutos.
+
 ### Pendientes
-Me quedaron pendientes al momento de cerrar este trabajo, las siguientes mejoras:
+
+Luego del desarrollo realizado, y en base a mi personalidad inquieta y creativa, siento que me quedaron algunos pendientes que me gustaria contarles: 
+
 - Mantener la conexión abierta a la BD, y cerrar la misma al terminar todos los inserts.
 - Unificar métodos de conexion, desconexión a la BD.
 - Omitir inicilización de variables, ya que GO las hace por DEFAULT.
-- Remover el guión bajo `_`de separación de dos palabras en el nombre de funciones, ya que es mejor práctica usar primera letra en mayúscula de la inicial de la segunda palabra, por `EJ:`analiza_tri() `pasaria` analizaTri()
+- Remover el guión bajo `_`de separación de dos palabras en el nombre de funciones, ya que es mejor práctica usar primera letra en mayúscula de la inicial de la segunda palabra, por `
+
+EJ:`analiza_tri() `pasaria` analizaTri()
 - Revisar usabilidad.
 - Realizar una mejor documentación del código. Agregar comentarios a todos los metodos para dejar en claro su funcionamiento esperado, parametros que reciben y contexto de ejcución.
 - Implementar cache de respuestas, sobretodo para consultas a la api.
 - Integrar servicios de monitoreo, para llevar registro de uso, performance y posibles errores no atrapados de la aplicación.
 
-## Setup
+### Setup
 
 Como dependencia del proyecto se encuentra [go](https://golang.org/), como asi también contar con los siguientes imports:
 -	database/sql

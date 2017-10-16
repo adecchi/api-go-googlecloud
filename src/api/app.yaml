@@ -1,0 +1,7 @@
+# Le especificamos a la aplicación que se ejecutará en APP ENGINE a que BD se conectará.
+env_variables:
+  POSTGRES_CONNECTION: "user=user_postgres password=Passwrod_user_postgres dbname=Db_Name host=/cloudsql/Instance_Name"
+beta_settings:
+  cloud_sql_instances: Instance_Name
+env: flex
+runtime: go
